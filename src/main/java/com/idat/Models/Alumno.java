@@ -12,6 +12,10 @@ public class Alumno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idalumno;
+	@Column (name="idseccion")
+	private int idseccion;
+	@Column (name="idusuario")
+	private int idusuario;
 	@Column (name="nombre")
 	private String nombre;
 	@Column (name="apellido")
@@ -22,10 +26,4 @@ public class Alumno {
 	private String telefono;
 	@Column (name="estado")
 	private String estado;
-	
-
-	/*@OneToOne
-	@JoinColumn(name="idusuario")
-	private Usuario usuarior;*/
-
 }
