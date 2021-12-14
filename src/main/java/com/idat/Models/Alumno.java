@@ -24,6 +24,8 @@ public class Alumno {
 	private String dni;
 	@Column (name="telefono", length=20)
 	private String telefono;
+	@Column(name = "correoalumno",length = 60)
+	private String correoalumno;
 	@Column (name="estado")
 	private String estado;
 }
