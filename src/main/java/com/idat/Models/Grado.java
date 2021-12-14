@@ -24,5 +24,7 @@ public class Grado {
 	private String descripcion;
 	@Column (name="estado")
 	private String estado;
+	@Column (name="idnivel")
+	private int idnivel;
 
 }
