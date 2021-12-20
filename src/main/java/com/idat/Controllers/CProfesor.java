@@ -49,4 +49,10 @@ public class CProfesor {
 		 servicio.deleteById(id);;
 	}
 
+	////
+	@GetMapping("/iduser/{id}")
+	public Optional<Profesor> findByUser(@PathVariable int id){
+		return servicio.findByUser(id);
+	}
+	
 }
