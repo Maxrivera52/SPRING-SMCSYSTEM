@@ -59,5 +59,11 @@ public class CAlumno {
 	}
 	
 	
+	////
+	@GetMapping("/iduser/{id}")
+	private Optional<Alumno> getByUserId(@PathVariable int id){
+		return data.findByUserId(id);
+	}
+	
 
 }

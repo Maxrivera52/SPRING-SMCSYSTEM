@@ -34,4 +34,9 @@ public class SProfesor {
 		data.deleteById(id);
 	}
 	
+	//
+	public Optional<Profesor> findByUser(int id){
+		return data.findByIdUser(id);
+	}
+	
 }
