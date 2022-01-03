@@ -14,8 +14,8 @@ public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idcurso;
-	@Column(name = "idseccion")
-	private int idseccion;
+	@Column(name = "idgrado")
+	private int idgrado;
 	@Column (name="descripcion")
 	private String descripcion;
 	@Column (name="estado")
