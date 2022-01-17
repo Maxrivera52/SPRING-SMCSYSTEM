@@ -36,6 +36,11 @@ public class CAlumno {
 		return data.findById(idalumno);
 	}
 	
+	@GetMapping(value="/seccion/{id}")
+	private List<Alumno> getByIdSeccion(@PathVariable("id") int id){
+		return data.findBySeccion(id);
+	}
+	
 	@PostMapping
 	private Optional<Alumno> save(@RequestBody Alumno alu){
 		Alumno alumno = data.save(alu);
