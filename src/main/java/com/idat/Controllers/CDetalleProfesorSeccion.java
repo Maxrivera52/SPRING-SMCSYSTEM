@@ -1,6 +1,5 @@
 package com.idat.Controllers;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,42 +15,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.idat.Interfaces.IDetalleCursoDocentes;
-import com.idat.Models.DetalleCursoDocente;
-import com.idat.Models.DetalleCursoDocenteSeccion;
+import com.idat.Interfaces.IDetalleProfesorSeccion;
+import com.idat.Models.DetalleProfesorSeccion;
 
 @RestController
-@RequestMapping("/detalle_curso_docente")
-@CrossOrigin(value = "http://localhost:4200")
-public class CDetalleCursoDocente {
+@RequestMapping("/profesorSeccion")
+@CrossOrigin("http://localhost:4200")
+public class CDetalleProfesorSeccion {
 
 	@Autowired
-	private IDetalleCursoDocentes data;
+	private IDetalleProfesorSeccion data;
 	
 	@GetMapping
-	private List<DetalleCursoDocente> getAll(){
-		return (List<DetalleCursoDocente>) data.findAll();
+	private List<DetalleProfesorSeccion> getAll(){
+		return (List<DetalleProfesorSeccion>) data.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
-	private Optional<DetalleCursoDocente> getById(@PathVariable("id") int id){
+	private Optional<DetalleProfesorSeccion> getById(@PathVariable("id") int id){
 		return data.findById(id);
 	}
-
-	@GetMapping(value = "/querydocente/{nivel}/{docente}")
-	private Collection<DetalleCursoDocente> getDetalleByDocenteNivel(@PathVariable("nivel") String nivel, @PathVariable("docente") String docente){
-		return data.getDetalleCursosDocenteByDocenteNivel(nivel, docente);
-	}
-	
 	
 	@PostMapping
-	private DetalleCursoDocente save(@RequestBody DetalleCursoDocente cur){
-		return data.save(cur);
+	private DetalleProfesorSeccion save(@RequestBody DetalleProfesorSeccion tb){
+		return data.save(tb);
 	}
 	
 	@PutMapping
-	private DetalleCursoDocente update(@RequestBody DetalleCursoDocente cur) {
-		return data.save(cur);
+	private DetalleProfesorSeccion update(@RequestBody DetalleProfesorSeccion tb) {
+		return data.save(tb);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -59,6 +51,4 @@ public class CDetalleCursoDocente {
 		data.deleteById(id);
 	}
 	
-
-
 }

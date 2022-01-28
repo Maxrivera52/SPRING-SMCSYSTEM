@@ -14,8 +14,9 @@ public class Curso {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idcurso;
-	@Column(name = "idgrado")
-	private int idgrado;
+	@ManyToOne
+	@JoinColumn(name = "idgrado",nullable = false)
+	private Grado idgrado;
 	@Column (name="descripcion")
 	private String descripcion;
 	@Column (name="estado")

@@ -1,5 +1,7 @@
 package com.idat.Controllers;
 
+import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +24,6 @@ import com.idat.Models.Periodo;
 @RequestMapping("/rest_periodos")
 @CrossOrigin("http://localhost:4200")
 public class CPeriodo {
-	
 	@Autowired
 	private IPeriodo data;
 	
@@ -34,6 +35,13 @@ public class CPeriodo {
 	@GetMapping(value = "/{idperiodo}")
 	private Optional<Periodo> getById(@PathVariable("idperiodo") int idperiodo){
 		return data.findById(idperiodo);
+	}
+	
+	@GetMapping(value = "/fechaMaxima")
+	private Collection<Periodo> getByFechaMaxima (){
+	    //DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE_TIME;
+		LocalDate date = java.time.LocalDate.now();
+		return data.getPeriodoByDateMax(String.format("%s", date));
 	}
 	
 	@PostMapping
@@ -49,8 +57,7 @@ public class CPeriodo {
 		if (periodo != null) {
 			res=1;
 		}
-		return res;
-		
+		return res;	
 	}
 	
 	@DeleteMapping("/{idperiodo}")
@@ -58,6 +65,4 @@ public class CPeriodo {
 		data.deleteById(idperiodo);
 	}
 	
-	
-
 }

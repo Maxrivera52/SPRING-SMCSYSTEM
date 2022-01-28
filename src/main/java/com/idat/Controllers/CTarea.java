@@ -16,42 +16,40 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.idat.Interfaces.IDetalleCursoDocentes;
-import com.idat.Models.DetalleCursoDocente;
-import com.idat.Models.DetalleCursoDocenteSeccion;
+import com.idat.Interfaces.ITarea;
+import com.idat.Models.Tarea;
 
 @RestController
-@RequestMapping("/detalle_curso_docente")
-@CrossOrigin(value = "http://localhost:4200")
-public class CDetalleCursoDocente {
-
+@RequestMapping("/tareaAlumno")
+@CrossOrigin(value = "http://localhost:4200",maxAge = 200)
+public class CTarea {
 	@Autowired
-	private IDetalleCursoDocentes data;
+	private ITarea data;
 	
 	@GetMapping
-	private List<DetalleCursoDocente> getAll(){
-		return (List<DetalleCursoDocente>) data.findAll();
+	private Collection<Tarea> getAll(){
+		return (List<Tarea>) data.findAll();
 	}
 	
 	@GetMapping(value = "/{id}")
-	private Optional<DetalleCursoDocente> getById(@PathVariable("id") int id){
+	private Optional<Tarea> getById(@PathVariable("id") int id){
 		return data.findById(id);
 	}
-
-	@GetMapping(value = "/querydocente/{nivel}/{docente}")
-	private Collection<DetalleCursoDocente> getDetalleByDocenteNivel(@PathVariable("nivel") String nivel, @PathVariable("docente") String docente){
-		return data.getDetalleCursosDocenteByDocenteNivel(nivel, docente);
-	}
 	
+	@GetMapping(value = "/idAlumno/{id}")
+	private Collection<Tarea> getByIdAlumno(@PathVariable("id") int id){
+		//System.out.println("$$$$$ "+ (id+1));
+		return data.getTareasByIdAlumno(id);
+	} 
 	
 	@PostMapping
-	private DetalleCursoDocente save(@RequestBody DetalleCursoDocente cur){
-		return data.save(cur);
+	private Tarea save(@RequestBody Tarea et){
+		return data.save(et);
 	}
 	
 	@PutMapping
-	private DetalleCursoDocente update(@RequestBody DetalleCursoDocente cur) {
-		return data.save(cur);
+	private Tarea update(@RequestBody Tarea et) {
+		return data.save(et);
 	}
 	
 	@DeleteMapping("/{id}")
@@ -59,6 +57,5 @@ public class CDetalleCursoDocente {
 		data.deleteById(id);
 	}
 	
-
 
 }
