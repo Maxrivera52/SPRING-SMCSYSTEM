@@ -27,5 +27,8 @@ public class DetalleCursoDocente {
 	@ManyToOne
 	@JoinColumn(name = "idprofesor",nullable = false)
 	private Profesor idprofesor;	
+	@ManyToOne
+	@JoinColumn(name = "idseccion",nullable = false)
+	private Seccion idseccion;
 
 }

@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,9 +22,7 @@ public class Usuario {
 	private String correo;
 	private String clave;
 	private String estado;
-	private int idrol;
-	/*
-	@OneToMany(mappedBy = "usuario")
+	@ManyToOne
+	@JoinColumn(name = "idrol",nullable = false)
 	private Rol idrol;
-	*/
 }

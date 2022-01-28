@@ -21,11 +21,12 @@ import com.idat.Services.SUsuario;
 
 @RestController
 @RequestMapping("/usuario")
-@CrossOrigin(origins = "http://localhost:4200",maxAge = 120)
+@CrossOrigin(origins = "http://localhost:4200")
 public class CUsuario {
 	@Autowired
 	SUsuario servicio;
 	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/listar")
 	public List<Usuario> listarusuario(){
 		return servicio.findAll();

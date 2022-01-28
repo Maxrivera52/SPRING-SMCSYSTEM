@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.idat.Interfaces.IDetalleCursoDocentes;
 import com.idat.Models.DetalleCursoDocente;
-import com.idat.Models.DetalleCursoDocenteSeccion;
 
 @RestController
 @RequestMapping("/detalle_curso_docente")
