@@ -16,6 +16,9 @@ public class SUsuario {
 	@Autowired
 	IUsuario data;
 	
+	@Autowired
+	ServiceEmailSender mailService;
+	
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	public List<Usuario> findAll(){
@@ -40,13 +43,15 @@ public class SUsuario {
 		}
 		return null; 
 	}
-	/*
-	public Usuario update(Usuario t) {
-		return data.save(t);
-	}*/
+	
 	public void deleteById(int id) {
 		data.deleteById(id);
 		//return "Id Eliminado con éxito";
+	}
+	
+	
+	public void sendRecoveryPassword(String mail,String keycode) {
+		mailService.sendEmail(mail, "Código de Recuperación: "+keycode, "SANTA MARGARITA's SYSTEM");
 	}
 	
 }

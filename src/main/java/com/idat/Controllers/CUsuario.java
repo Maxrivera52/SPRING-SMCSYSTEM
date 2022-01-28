@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.idat.Interfaces.IUsuario;
+import com.idat.Models.RecoveryAccount;
 import com.idat.Models.Usuario;
 import com.idat.Services.SUsuario;
 
@@ -25,6 +27,12 @@ import com.idat.Services.SUsuario;
 public class CUsuario {
 	@Autowired
 	SUsuario servicio;
+	
+	@Autowired
+	CRecoveryAccount controllerRecovery;
+	
+	@Autowired
+	IUsuario data;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/listar")
@@ -40,16 +48,9 @@ public class CUsuario {
 	@GetMapping("/login")
 	@ResponseBody
 	public Usuario loginUser(@RequestParam(name = "correo") String correo,@RequestParam String clave){
-	//public Usuario loginUser(@RequestBody Object t){
 		return servicio.loginUser(correo, clave);
 	}
 	
-	/**
-	@GetMapping(value = "/listar/{idUsuario}")
-	public Optional<Usuario> buscarUsuario(@PathVariable int idUsuario){
-		return servicio.buscarUsuario(idUsuario);
-	}
-*/
 	@PostMapping("/save")
 	public Usuario guardarUsuario(@RequestBody Usuario t) {
 		 return servicio.save(t);
@@ -58,39 +59,48 @@ public class CUsuario {
 	@PutMapping("/update")
 	public void modificarUsuario(@RequestBody Usuario t) {
 		servicio.save(t);
-		//		servicio.guardarUsuario(t);
 	}
-/*
-	//HABILITAR Y DESHABILITAR USUARIO
-	@GetMapping("/habUsu/{IDusuario}")
-	public void 
-		HabilitarUsuario(@PathVariable("IDusuario") int IDusuario) {
-		
-		
-		servicio.HabilitarUsuario(IDusuario);
-	}
-	
-	
-	//http://localhost:8070/Usuario/login/matrui@gmail.com&ferds87
-	@GetMapping("/login/{usuario}&{pass}")
-	public List<Map<String, Object>> 
-		LoginUsuario(@PathVariable("usuario") String usuario,@PathVariable("pass") String pass) {
-		
-		return servicio.loginUsuario(usuario, pass);
+	@GetMapping("/recoverUserWithCredentials")
+	public String existEmail(@RequestParam(name = "keycode")String keycode,@RequestParam(name = "email") String email,
+			@RequestParam(name = "password")String password){
+		String verified = recoveryAccount(email, keycode);
+		if(!verified.equals("verificated")) {
+			return "unauthorized";
+		}
+		Usuario us = data.loginUserMailPass(email);
+		us.setClave(password);
+		us = guardarUsuario(us);
+		if(us==null) {
+			return "error";
+		}
+		RecoveryAccount recovery = controllerRecovery.getRecoveryCode(email);
+		controllerRecovery.delete(recovery.getId());
+		return "success";
 	}
 	
 	
-	//SI EL LOGIN ES CORRECTO DEVOLVERA 1, SI NO, SERA 0
-	@GetMapping("/valLog/{usuario}&{pass}")
-	public String 
-		ValidarUsuario(@PathVariable("usuario") String usuario,@PathVariable("pass") String pass) {
-		
-		System.out.print(servicio.validarLogin(usuario, pass));
-		
-		return servicio.validarLogin(usuario, pass);
+	@GetMapping("/sendRecoveryEmail")
+	public String recoveryAccount(@RequestParam(name = "email") String email) {
+		RecoveryAccount recovery = controllerRecovery.save(email);
+		if(recovery==null) {
+			return "nonregistered";
+		}
+		servicio.sendRecoveryPassword(email,recovery.getKeycode());
+		return "sended";
 	}
-	*/
+	
 
+	@GetMapping("/verifyRecoveryCode")
+	public String recoveryAccount(@RequestParam(name = "email") String email,@RequestParam(name = "keycode")String keycode) {
+		RecoveryAccount recovery = controllerRecovery.getRecoveryCode(email);
+		if(recovery==null) {
+			return "nonregistered";
+		}
+		if(!recovery.getKeycode().equals(keycode)) {
+			return "nonverificated";
+		}		
+		return "verificated";
+	}
 }
 
 

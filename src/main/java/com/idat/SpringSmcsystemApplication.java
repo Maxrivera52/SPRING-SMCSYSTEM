@@ -22,4 +22,11 @@ public class SpringSmcsystemApplication {
 			}
 		};
 	}
+	
+	/*
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+		
+	}
+	*/
 }
