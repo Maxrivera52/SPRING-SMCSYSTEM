@@ -19,18 +19,18 @@ public class Calificacion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idcal;
-	private String fechacomplcal;
-	private String observacioncal;
-	private String estado;
+	private int idcalificacion;
 	@ManyToOne
 	@JoinColumn(name = "idcurso",nullable = false)
 	private Curso idcurso;
 	@ManyToOne
-	@JoinColumn(name = "idalumno",nullable = false)
-	private Alumno idalumno;
-	@ManyToOne
-	@JoinColumn(name = "idperiodo")
+	@JoinColumn(name = "idperiodo",nullable = false)
 	private Periodo idperiodo;
-
+	private String tipo;
+	private String fecha_asignacion;
+	private String fecha_entrega;
+	private String titulo;
+	private String descripcion;
+	private String estado;
+	
 }

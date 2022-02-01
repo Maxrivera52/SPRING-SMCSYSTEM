@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +19,9 @@ public class Seccion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idseccion;
-	private int idgrado;
+	@ManyToOne
+	@JoinColumn(name = "idgrado",nullable = false)
+	private Grado idgrado;
 	private String descripcion;
 	private String estado;
 

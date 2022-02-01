@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -24,7 +26,9 @@ public class Grado {
 	private String descripcion;
 	@Column (name="estado")
 	private String estado;
-	@Column (name="idnivel")
-	private int idnivel;
+	
+	@ManyToOne
+	@JoinColumn(name = "idnivel",nullable = false)
+	private Nivel idnivel;
 
 }

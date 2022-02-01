@@ -1,5 +1,6 @@
 package com.idat.Models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,17 +14,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "dtprofesorseccion")
+@Table(name = "detalle_calificacion")
 @Data @AllArgsConstructor @NoArgsConstructor
-public class DetalleProfesorSeccion {
+public class DetalleCalificacion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int iddtprofseccion;
+	private int id;
 	@ManyToOne
-	@JoinColumn(name = "idprofesor",nullable = false)
-	private Profesor idprofesor;
+	@JoinColumn(name = "idalumno")
+	private Alumno idalumno;
 	@ManyToOne
-	@JoinColumn(name = "idseccion",nullable = false)
-	private Seccion idseccion;
-	private String estado;	
+	@JoinColumn(name = "idcalificacion")
+	private Calificacion idcalificacion;
+	@Column(nullable = true)
+	private String fecha_entregado;
+	@Column(nullable = true)
+	private Double puntuacion;
+	private String estado;
 }

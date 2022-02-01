@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.idat.Interfaces.IDetalleCursoDocentes;
 import com.idat.Models.DetalleCursoDocente;
+import com.idat.Models.Profesor;
 
 @RestController
 @RequestMapping("/detalle_curso_docente")
@@ -37,11 +38,12 @@ public class CDetalleCursoDocente {
 		return data.findById(id);
 	}
 
-	@GetMapping(value = "/querydocente/{nivel}/{docente}")
-	private Collection<DetalleCursoDocente> getDetalleByDocenteNivel(@PathVariable("nivel") String nivel, @PathVariable("docente") String docente){
-		return data.getDetalleCursosDocenteByDocenteNivel(nivel, docente);
+	@GetMapping(value = "/querydocente/{id}")
+	private Collection<DetalleCursoDocente> getDetalleByDocente(@PathVariable("id") int id){
+		Profesor ob = new Profesor();
+		ob.setIdprofesor(id);
+		return data.findByIdprofesor(ob);
 	}
-	
 	
 	@PostMapping
 	private DetalleCursoDocente save(@RequestBody DetalleCursoDocente cur){

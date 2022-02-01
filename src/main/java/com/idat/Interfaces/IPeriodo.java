@@ -13,4 +13,8 @@ public interface IPeriodo extends CrudRepository<Periodo, Integer>{
 
 	@Query("SELECT per FROM Periodo per WHERE per.fechacierre > ?1")
 	public Collection<Periodo> getPeriodoByDateMax(String fecha);
+	
+	@Query("SELECT per FROM Periodo per WHERE per.fechainicio <= ?1 "
+			+ "AND per.fechacierre >= ?1")
+	public Periodo getCurrentPeriodoByDate(String fecha);
 }

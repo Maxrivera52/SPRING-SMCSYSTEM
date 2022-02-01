@@ -1,5 +1,7 @@
 package com.idat.Controllers;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.idat.Interfaces.ICalificacion;
 import com.idat.Models.Calificacion;
+import com.idat.Models.Periodo;
 
 @RestController
 @RequestMapping("/calificacionesAlumno")
@@ -25,6 +28,8 @@ import com.idat.Models.Calificacion;
 public class CCalificacion {
 	@Autowired
 	private ICalificacion data;
+	
+	@Autowired private CPeriodo ControllerPeriodo;
 	
 	@GetMapping
 	private Collection<Calificacion> getAll(){
@@ -43,6 +48,10 @@ public class CCalificacion {
 	
 	@PostMapping
 	private Calificacion save(@RequestBody Calificacion et){
+		LocalDate date = java.time.LocalDate.now(ZoneId.of( "America/Montreal" ));
+		et.setFecha_asignacion(String.format("%s", date));
+		Periodo currPer = ControllerPeriodo.getByFechaActual();
+		et.setIdperiodo(currPer);
 		return data.save(et);
 	}
 	

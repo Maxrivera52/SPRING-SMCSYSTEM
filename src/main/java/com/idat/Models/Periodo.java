@@ -22,6 +22,8 @@ public class Periodo {
 	private String fechacierre;
 	@Column (name="estado")
 	private String estado;
-	private int idanio;
+	@ManyToOne
+	@JoinColumn(name = "idanio",nullable = false)
+	private AnioEscolar idanio;
 
 }

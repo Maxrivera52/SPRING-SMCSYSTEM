@@ -1,6 +1,7 @@
 package com.idat.Controllers;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -40,8 +41,15 @@ public class CPeriodo {
 	@GetMapping(value = "/fechaMaxima")
 	private Collection<Periodo> getByFechaMaxima (){
 	    //DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE_TIME;
-		LocalDate date = java.time.LocalDate.now();
+		LocalDate date = java.time.LocalDate.now(ZoneId.of( "America/Montreal" ));
 		return data.getPeriodoByDateMax(String.format("%s", date));
+	}
+	
+	@GetMapping(value = "/periodoActual")
+	public Periodo getByFechaActual (){
+	    //DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE_TIME;
+		LocalDate date = java.time.LocalDate.now(ZoneId.of( "America/Montreal" ));
+		return data.getCurrentPeriodoByDate(String.format("%s", date));
 	}
 	
 	@PostMapping

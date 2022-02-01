@@ -37,7 +37,7 @@ public class CAlumno {
 	}
 	
 	@GetMapping(value="/seccion/{id}")
-	private List<Alumno> getByIdSeccion(@PathVariable("id") int id){
+	public List<Alumno> getByIdSeccion(@PathVariable("id") int id){
 		return data.findBySeccion(id);
 	}
 	

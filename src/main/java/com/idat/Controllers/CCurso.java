@@ -1,5 +1,6 @@
 package com.idat.Controllers;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,11 @@ public class CCurso {
 	@GetMapping(value = "/{idcurso}")
 	private Optional<Curso> getById(@PathVariable("idcurso") int idcurso){
 		return data.findById(idcurso);
+	}
+	
+	@GetMapping(value = "/grado/{id}")
+	private Collection<Curso> getByIdGrado(@PathVariable("id") int id){
+		return data.getByIdGrado(id);
 	}
 	
 	@PostMapping
